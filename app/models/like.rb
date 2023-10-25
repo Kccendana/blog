@@ -1,6 +1,6 @@
 class Like < ApplicationRecord
-  belongs_to :users
-  belongs_to :posts
+  belongs_to :post
+  belongs_to :user
 
   after_save :update_likes_counter
 
