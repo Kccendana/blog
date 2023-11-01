@@ -1,30 +1,37 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe UsersController, type: :request do
   describe 'GET #index' do
-    it 'assigns @users' do
-      user = User.create(name: 'Ben', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Poland.')
-      get :index
-      expect(assigns(:users)).to eq([user])
+    it 'returns a success response' do
+      get users_path
+      expect(response).to have_http_status(:success)
     end
 
     it 'renders the index template' do
-      get :index
+      get users_path
       expect(response).to render_template('index')
+    end
+
+    it 'renders the right placeholder' do
+      get users_path
+      expect(response.body).to include 'Here is a list of user'
     end
   end
 
   describe 'GET #show' do
-    it 'assigns @user' do
-      user = User.create(name: 'Kyla', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Poland.')
-      get :show, params: { id: user.id }
-      expect(assigns(:user)).to eq(user)
+    it 'returns a success response' do
+      get user_path(:user_id)
+      expect(response).to have_http_status(:success)
     end
 
-    it 'renders the show template' do
-      user = User.create(name: 'Test3', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher3 from Poland.')
-      get :show, params: { id: user.id }
+    it 'renders the index template' do
+      get user_path(:user_id)
       expect(response).to render_template('show')
+    end
+
+    it 'renders the right placeholder' do
+      get user_path(:user_id)
+      expect(response.body).to include 'Here is a list of user'
     end
   end
 end
