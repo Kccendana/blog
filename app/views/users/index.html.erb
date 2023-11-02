@@ -1,1 +1,9 @@
-<h1>Here is a list of user</h1>
+<ul class="users_container">
+    <% @users.each do |user| %>
+        <%= link_to user_path(user.id) do %>
+        <li>
+        <%= render "helpers/users_list", user: user %>
+        </li>
+        <% end %>
+    <% end %>
+    </ul>
