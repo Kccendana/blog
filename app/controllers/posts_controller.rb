@@ -24,19 +24,6 @@ class PostsController < ApplicationController
     end
   end
 
-  def like
-    @post = Post.find(params[:id]) # Find the post
-    @user = User.find(@post.author_id) # Find the user who authored the post
-
-    @like = @post.likes.new(user: current_user)
-
-    if @like.save
-      redirect_to user_post_path(@user, @post), notice: 'Post liked successfully.'
-    else
-      redirect_to user_post_path(@user, @post), alert: 'Failed to like the post.'
-    end
-  end
-
   private
 
   def post_params
