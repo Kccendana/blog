@@ -4,10 +4,11 @@
     
         <div class="likes-comments">
             <span>
-                Comments: <%= @post.comments.count %>,
+                Comments: <%= @post.comments.count %>
             </span>
             <span class='likesBtn'>
-                <%= button_to "Like: ", like_user_post_path(@user, @post), method: :post, remote: true %> <%= @post.likes.count %>
+                <%# likes button here.. %>
+                Likes: <%= @post.comments.count %><%= @post.likes.count %>
             </span>
         </div>
         <div class='custom-like-section'>
