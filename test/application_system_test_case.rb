@@ -1,5 +1,5 @@
 require 'test_helper'
-CHROMEDRIVER_URL = 'http://localhost:9515/'
+CHROMEDRIVER_URL = 'http://localhost:9515/'.freeze
 
 # WINDOWS_HOST = `cat /etc/resolve.conf | grep nameserver | awk '{print $2 }`.strip
 # CHROMEDRIVER_URL = "http://#{WINDOWS_HOST}:9515/".freeze
