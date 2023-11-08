@@ -1,5 +1,48 @@
 require 'rails_helper'
 
-RSpec.describe 'posts/show.html.erb', type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe 'Post show', type: :feature do
+  before :each do
+    @user = User.create(name: 'John Doe', photo: 'https://example.com/john-doe.jpg', bio: 'Web Developer',
+                        posts_counter: 0)
+    @post1 = Post.create(author_id: @user.id, title: 'Rails Journey', text: 'Exploring the world of Rails development.',
+                         likes_counter: 2, comments_counter: 2)
+    @post2 = Post.create(author_id: @user.id, title: 'Hello World', text: 'Another day, another hello.',
+                         likes_counter: 0, comments_counter: 0)
+    @post3 = Post.create(author_id: @user.id, title: 'Ruby Adventures', text: 'Discovering the beauty.',
+                         likes_counter: 0, comments_counter: 0)
+    @comment1 = Comment.create(user_id: @user.id, post_id: @post1.id, text: 'Great post!')
+    @comment2 = Comment.create(user_id: @user.id, post_id: @post1.id, text: 'I learned a lot.')
+    @like = Like.create(user_id: @user.id, post_id: @post1.id)
+    visit user_post_path(@user.id, @post1.id)
+  end
+
+  it 'see the post title' do
+    expect(page).to have_content('Rails Journey')
+  end
+
+  it 'see who wrote the post' do
+    expect(page).to have_content('John Doe')
+  end
+
+  it 'see how many comments it has' do
+    expect(page).to have_content(@post1.comments_counter)
+  end
+
+  it 'see how many likes it has' do
+    expect(page).to have_content(@post1.likes_counter)
+  end
+
+  it 'see the post body' do
+    expect(page).to have_content('Exploring the world of Rails development.')
+  end
+
+  it 'see the username of each commentator' do
+    expect(page).to have_content(@comment1.user.name)
+    expect(page).to have_content(@comment2.user.name)
+  end
+
+  it 'see the comment of each commentator left' do
+    expect(page).to have_content('Great post!')
+    expect(page).to have_content('I learned a lot.')
+  end
 end
