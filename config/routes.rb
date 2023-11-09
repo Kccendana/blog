@@ -8,4 +8,11 @@ Rails.application.routes.draw do
     end
   end
   root 'users#index'
+  namespace :api, default: {format: :json} do
+    namespace :v1 do
+      resources :posts, only: %i[index] do
+        resources :comments, only: %i[index create]
+      end
+    end
+  end
 end
