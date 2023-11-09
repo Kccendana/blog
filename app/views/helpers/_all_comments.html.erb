@@ -5,6 +5,9 @@
     <% post.comments.each do |comment| %>
       <div class='comment'>
         <p><strong><%= comment.user.name %>:</strong> <%= comment.text %></p>
+        <% if can? :destroy, comment %>
+          <%= button_to 'Delete', user_post_comment_path(user_id: @user.id, post_id: @post.id, id: comment.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
       </div>
     <% end %>
   <% end %>
