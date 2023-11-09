@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @post.comments.new(comment_params)
-    @comment.user = @user # Assuming 'user' is the association between Comment and User
+    @comment.user = @user
     if @comment.save
       flash[:notice] = 'Comment created successfully.'
       redirect_to user_post_path(@user, @post)
