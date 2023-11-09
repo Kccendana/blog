@@ -14,6 +14,11 @@
   </div>
     </div>
     <p><%= @post.text%></p>
+    <% if can? :destroy, @post %>
+            <%= button_to 'Delete', user_post_path(user_id: @post.author_id, id: @post.id),
+                            method: :delete, data: { confirm: 'Are you sure you want to delete this post?' },
+                            class: 'border' %>
+        <% end %>
 </div>
 <%= render 'helpers/all_comments', post: @post %>
 <div class="link_user_posts">
